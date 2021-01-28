@@ -3,13 +3,15 @@ const router = express.Router();
 
 const ServiceDog = require('../../models/ServiceDog');
 
-router.post('/', function (request, response) {
+router.post('/', async function (request, response) {
+    const { name } = request.body;
 
     const newServiceDog = new ServiceDog({
-        name: "Ryan"
+        name
     });
-    newServiceDog.save();
-    response.send("POST request from serviceDog.js");
+
+    await newServiceDog.save();
+    response.json(newServiceDog);
 });
 
 module.exports = router;
