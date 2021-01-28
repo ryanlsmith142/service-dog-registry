@@ -10,6 +10,7 @@ connectDB();
 app.use(express.json({
     extended: false
 }))
+
 app.get('/', (req, res) => res.send('API Running'));
 
 app.use('/api/serviceDogs', require('./routes/api/serviceDog'));
