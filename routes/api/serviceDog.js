@@ -12,30 +12,29 @@ router.post('/', async function (req, response) {
 });
 
 router.get('/', function (req, res) {
-
+    
     var options = {
-        "method": "GET",
-        "hostname": "qrcode3.p.rapidapi.com",
-        "port": null,
-        "path": "/generateQR?ec_level=M&format=svg&fill_style=solid&text=Test%20QR%20Code",
-        "headers": {
-            "x-rapidapi-host": "qrcode3.p.rapidapi.com",
-            "x-rapidapi-key": "0b8627d3acmsh5faf1c627b85881p11f72ejsn31c0267e4eb9",
-            "useQueryString": true
-        }
+            "frame_name": "no-frame",
+            "qr_code_text": "https://www.qr-code-generator.com/",
+            "image_format": "SVG",
+            "background_color": "#ffffff",
+            "foreground_color": "#fa6e79",
+            "marker_right_inner_color": "#2d7cda",
+            "marker_right_outer_color": "#00bfff",
+            "marker_left_template": "version13",
+            "marker_right_template": "version13",
+            "marker_bottom_template": "version13"
+        
     };
       
       function callback(error, response, body) {
-          console.log("Hey there before");
-        if (!error && response.statusCode == 200) {
           res.json(response);
-        } else {
-            res.json("error");
-        }
       }
       
       request(options, callback);
-
+    
+    
+    res.end();
 })
 
 module.exports = router;
