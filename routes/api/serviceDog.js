@@ -6,19 +6,23 @@ const request = require('request');
 
 
 router.post('/', function (req, res) {
+    const { serviceDogName } = req.body;
+    console.log(serviceDogName);
+    console.log(req.body);
     res.json("Creating or updating a service dog profiles.")
 });
 
-router.get('/', function (req, res) {
+router.get('/:serviceDogProfileId', function (req, res) {
+    console.log(req.params)
     res.json("Getting a service dog profile.");
-
 });
 
 router.get('/getAllServiceDogs', function (req, res) {
     res.json("Getting all service dog profiles.");
 });
 
-router.delete('/', function (req, res) {
+router.delete('/:serviceDogProfileId', function (req, res) {
+    console.log(req.params);
     res.json("Delete a service dog profile.")
 })
 
