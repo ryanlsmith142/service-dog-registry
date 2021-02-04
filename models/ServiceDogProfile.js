@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const ServiceDogProfileSchema = new mongoose.Schema({
-    name: String,
-    handler: String,
-    certifyingOrganization: String,
+    serviceDogName: String,
+    handlerFirstName: String,
+    handlerLastName: String,
+    certifyingOrganizationName: String,
     dateLastCertified: Number,
     qrCode: String
 });

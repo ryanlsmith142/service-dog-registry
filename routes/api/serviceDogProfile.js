@@ -8,7 +8,7 @@ const request = require('request');
 // @desc    Create or update a service dog profile
 // @access  Private
 router.post('/', function (req, res) {
-    const { serviceDogName } = req.body;
+    const { serviceDogName, handlerFirstName, handlerLastName, certifyingOrganizationName, dateLastCertified, qrCode } = req.body;
     console.log(serviceDogName);
     console.log(req.body);
     res.json("Creating or updating a service dog profiles.")

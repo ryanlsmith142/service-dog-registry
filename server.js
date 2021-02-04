@@ -13,7 +13,7 @@ app.use(express.json({
 
 app.get('/', (req, res) => res.send('API Running'));
 
-app.use('/api/serviceDogs', require('./routes/api/serviceDog'));
+app.use('/api/serviceDogProfile', require('./routes/api/serviceDogProfile'));
 
 const PORT = process.env.PORT || 5000;
 
