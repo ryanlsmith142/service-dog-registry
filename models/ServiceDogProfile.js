@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ServiceDogSchema = new mongoose.Schema({
+const ServiceDogProfileSchema = new mongoose.Schema({
     name: String,
     handler: String,
     certifyingOrganization: String,
@@ -8,4 +8,4 @@ const ServiceDogSchema = new mongoose.Schema({
     qrCode: String
 });
 
-module.exports = ServiceDog = mongoose.model('serviceDog', ServiceDogSchema);
+module.exports = ServiceDogProfile = mongoose.model('serviceDogProfile', ServiceDogProfileSchema);
