@@ -7,13 +7,30 @@ const request = require('request');
 // @route   POST api/serviceDogProfile
 // @desc    Create or update a service dog profile
 // @access  Private
-router.post('/', function (req, res) {
+router.post('/', async function (req, res) {
     const { serviceDogName, handlerFirstName, handlerLastName, certifyingOrganizationName, dateLastCertified, qrCode, dogProfilePicture } = req.body;
 
+    try {
 
-    console.log(serviceDogName);
-    console.log(req.body);
-    res.json("Creating or updating a service dog profiles.")
+        let serviceDogProfile = {};
+        serviceDogProfile.serviceDogName = req.body.serviceDogName;
+        serviceDogProfile.handlerFirstName = req.body.handlerFirstName;
+        serviceDogProfile.handlerLastName = req.body.handlerLastName;
+        serviceDogProfile.certifyingOrganizationName = req.body.certifyingOrganizationName;
+        serviceDogProfile.dateLastCertified = req.body.dateLastCertified;
+        serviceDogProfile.qrCode = req.body.qrCode;
+        serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
+
+
+        serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
+
+        await serviceDogProfile.save();
+        res.json(serviceDogProfile);
+
+      } catch(error) {
+        console.error(error.message);
+        res.status(500).send('Server Error, unable to create or update service dog profile');
+      }
 });
 
 // @route   GET api/serviceDogProfile/:serviceDogProfileId
