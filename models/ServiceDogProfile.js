@@ -6,7 +6,8 @@ const ServiceDogProfileSchema = new mongoose.Schema({
     handlerLastName: String,
     certifyingOrganizationName: String,
     dateLastCertified: Number,
-    qrCode: String
+    qrCode: String,
+    dogProfilePicture: String
 });
 
 module.exports = ServiceDogProfile = mongoose.model('serviceDogProfile', ServiceDogProfileSchema);
