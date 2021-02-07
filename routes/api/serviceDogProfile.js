@@ -34,10 +34,25 @@ router.post('/', async function (req, res) {
       }
 });
 
+// @route   GET api/serviceDogProfile/getAllServiceDogs
+// @desc    Get all service dog profiles
+// @access  Private
+router.get('/getAllServiceDogProfiles', async function (req, res) {
+    try {
+        const serviceDogProfiles = await ServiceDogProfile.find();
+        res.json(serviceDogProfiles)
+    } catch(error) {
+        console.error(error.message);
+        res.status(500).send('Server Error, unable to get all service dog profiles');
+    }
+    res.json("Getting all service dog profiles.");
+});
+
 // @route   GET api/serviceDogProfile/:serviceDogProfileId
 // @desc    Get a service dog profile by id
 // @access  Private
 router.get('/:serviceDogProfileId', async function (req, res) {
+
     try {
         const serviceDogProifle = await ServiceDogProfile.findOne({ _id: req.params.serviceDogProfileId});
         res.json(serviceDogProifle);
@@ -48,13 +63,6 @@ router.get('/:serviceDogProfileId', async function (req, res) {
     
     console.log(req.params.serviceDogProfileId)
     res.json("Getting a service dog profile.");
-});
-
-// @route   GET api/serviceDogProfile/getAllServiceDogs
-// @desc    Get all service dog profiles
-// @access  Private
-router.get('/getAllServiceDogProfiles', function (req, res) {
-    res.json("Getting all service dog profiles.");
 });
 
 // @route   DELETE api/serviceDogProfile/:serviceDogProfileId
