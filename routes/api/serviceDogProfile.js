@@ -8,6 +8,7 @@ const request = require('request');
 // @desc    Create or update a service dog profile
 // @access  Private
 router.post('/', async function (req, res) {
+    //Is this required?
     const { serviceDogName, handlerFirstName, handlerLastName, certifyingOrganizationName, dateLastCertified, qrCode, dogProfilePicture } = req.body;
 
     try {
@@ -36,8 +37,16 @@ router.post('/', async function (req, res) {
 // @route   GET api/serviceDogProfile/:serviceDogProfileId
 // @desc    Get a service dog profile by id
 // @access  Private
-router.get('/:serviceDogProfileId', function (req, res) {
-    console.log(req.params)
+router.get('/:serviceDogProfileId', async function (req, res) {
+    try {
+        const serviceDogProifle = await ServiceDogProfile.findOne({ _id: req.params.serviceDogProfileId});
+        res.json(serviceDogProifle);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error, unable to find service dog profile by id');
+    }
+    
+    console.log(req.params.serviceDogProfileId)
     res.json("Getting a service dog profile.");
 });
 
