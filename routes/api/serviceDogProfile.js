@@ -9,7 +9,7 @@ const request = require('request');
 // @access  Private
 router.post('/', async function (req, res) {
     //Is this required?
-    const { serviceDogName, handlerFirstName, handlerLastName, certifyingOrganizationName, dateLastCertified, qrCode, dogProfilePicture } = req.body;
+    const { serviceDogName, handlerFirstName, handlerLastName, certifyingOrganizationName, certifyingOrganizationId, dateLastCertified, qrCode, dogProfilePicture } = req.body;
 
     try {
 
@@ -18,10 +18,10 @@ router.post('/', async function (req, res) {
         serviceDogProfile.handlerFirstName = req.body.handlerFirstName;
         serviceDogProfile.handlerLastName = req.body.handlerLastName;
         serviceDogProfile.certifyingOrganizationName = req.body.certifyingOrganizationName;
+        serviceDogProfile.certifyingOrganizationId = req.body.certifyingOrganizationId
         serviceDogProfile.dateLastCertified = req.body.dateLastCertified;
         serviceDogProfile.qrCode = req.body.qrCode;
         serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
-
 
         serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
 
@@ -37,15 +37,14 @@ router.post('/', async function (req, res) {
 // @route   GET api/serviceDogProfile/getAllServiceDogs
 // @desc    Get all service dog profiles
 // @access  Private
-router.get('/getAllServiceDogProfiles', async function (req, res) {
+router.get('/getAllServiceDogProfiles/:certifyingOrganizationId', async function (req, res) {
     try {
-        const serviceDogProfiles = await ServiceDogProfile.find();
+        const serviceDogProfiles = await ServiceDogProfile.find({ certifyingOrganizationId: req.params.certifyingOrganizationId});
         res.json(serviceDogProfiles)
     } catch(error) {
         console.error(error.message);
         res.status(500).send('Server Error, unable to get all service dog profiles');
     }
-    res.json("Getting all service dog profiles.");
 });
 
 // @route   GET api/serviceDogProfile/:serviceDogProfileId
@@ -60,9 +59,6 @@ router.get('/:serviceDogProfileId', async function (req, res) {
         console.error(error.message);
         res.status(500).send('Server Error, unable to find service dog profile by id');
     }
-    
-    console.log(req.params.serviceDogProfileId)
-    res.json("Getting a service dog profile.");
 });
 
 // @route   DELETE api/serviceDogProfile/:serviceDogProfileId
