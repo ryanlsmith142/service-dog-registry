@@ -64,9 +64,14 @@ router.get('/:serviceDogProfileId', async function (req, res) {
 // @route   DELETE api/serviceDogProfile/:serviceDogProfileId
 // @desc    Get a service dog profile by id
 // @access  Private
-router.delete('/:serviceDogProfileId', function (req, res) {
-    console.log(req.params);
-    res.json("Delete a service dog profile.")
+router.delete('/:serviceDogProfileId', async function (req, res) {
+    try {
+        const serviceDogProfile = await ServiceDogProfile.deleteOne({ _id: req.params.serviceDogProfileId })
+        res.json(serviceDogProfile);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error, unable to delete service dog profile');
+    }
 })
 
 module.exports = router;

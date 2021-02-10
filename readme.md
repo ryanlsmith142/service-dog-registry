@@ -13,3 +13,13 @@ This file should look something like this:
 {
     "mongoURI": "your mongodb connection details here"
 }
+
+TODO:
+
+- Update service dog profile post with update profile
+
+- Implement delete service dog profile functionality
+
+- Set up local mongoDb
+
+- Set up seeder file
