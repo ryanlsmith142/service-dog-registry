@@ -34,13 +34,17 @@ router.post('/', async function (req, res) {
       }
 });
 
-// @route   GET api/serviceDogProfile/getAllServiceDogs
+// @route   GET api/serviceDogProfile/getAllServiceDogs/:certifyingOrganizationId
 // @desc    Get all service dog profiles
 // @access  Private
 router.get('/getAllServiceDogProfiles/:certifyingOrganizationId', async function (req, res) {
     try {
         const serviceDogProfiles = await ServiceDogProfile.find({ certifyingOrganizationId: req.params.certifyingOrganizationId});
-        res.json(serviceDogProfiles)
+        if (serviceDogProfiles === null) {
+            res.json("There are no service dog profiles for this organization.")
+        } else {
+            res.json(serviceDogProfiles)
+        }
     } catch(error) {
         console.error(error.message);
         res.status(500).send('Server Error, unable to get all service dog profiles');
