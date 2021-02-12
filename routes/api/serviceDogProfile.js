@@ -23,9 +23,14 @@ router.post('/', async function (req, res) {
         serviceDogProfile.qrCode = req.body.qrCode;
         serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
 
-        serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
-
-        await serviceDogProfile.save();
+        if(serviceDogProfileExists(req)) {
+            //update
+            console.log("Hey I exist already");
+        } else {
+            serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
+            await serviceDogProfile.save();
+        }
+        
         res.json(serviceDogProfile);
 
       } catch(error) {
@@ -78,4 +83,17 @@ router.delete('/:serviceDogProfileId', async function (req, res) {
     }
 })
 
+async function serviceDogProfileExists(req) {
+    try {
+        const serviceDogProfile = await ServiceDogProfile.findOne({serviceDogName: req.params.serviceDogName, handlerFirstName: req.params.handlerFirstName})
+        if(serviceDogProfile) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server Error, unable to find and update profile.');
+    }
+}
 module.exports = router;
