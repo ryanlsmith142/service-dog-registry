@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ServiceDogProfile = require('../../models/ServiceDogProfile');
 const request = require('request');
+const { json } = require('express');
 
 
 // @route   POST api/serviceDogProfile
@@ -23,17 +24,17 @@ router.post('/', async function (req, res) {
         serviceDogProfile.qrCode = req.body.qrCode;
         serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
 
-        serviceDogProfileExists = serviceDogProfileExists(req);
-
-        if(serviceDogProfileExists) {
+        const serviceDogProfileFromDB = await ServiceDogProfile.findOne(serviceDogProfile);
+        
+        if(json(serviceDogProfileFromDB.id)) {
             console.log("Hey I exist already");
-        } else if(!serviceDogProfileExists) {
-            console.log("Hey I don't exist already");
+            res.json(serviceDogProfileFromDB);
+        } else {
             serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
             await serviceDogProfile.save();
+            res.json("Service Dog Profile saved successfully");
         }
         
-        res.json(serviceDogProfile);
 
       } catch(error) {
         console.error(error.message);
@@ -89,7 +90,7 @@ async function serviceDogProfileExists(req) {
     try {
         console.log("Inside serviceDogProfileExists")
         const serviceDogProfile = await ServiceDogProfile.findOne({serviceDogName: req.params.serviceDogName, handlerFirstName: req.params.handlerFirstName})
-
+        console.log(serviceDogProifle);
         // If its not null then update with request object
         if(serviceDogProfile != null) {
             return true;
