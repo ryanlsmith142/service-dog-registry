@@ -23,10 +23,12 @@ router.post('/', async function (req, res) {
         serviceDogProfile.qrCode = req.body.qrCode;
         serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
 
-        if(serviceDogProfileExists(req)) {
-            //update
+        serviceDogProfileExists = serviceDogProfileExists(req);
+
+        if(serviceDogProfileExists) {
             console.log("Hey I exist already");
-        } else {
+        } else if(!serviceDogProfileExists) {
+            console.log("Hey I don't exist already");
             serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
             await serviceDogProfile.save();
         }
@@ -85,8 +87,11 @@ router.delete('/:serviceDogProfileId', async function (req, res) {
 
 async function serviceDogProfileExists(req) {
     try {
+        console.log("Inside serviceDogProfileExists")
         const serviceDogProfile = await ServiceDogProfile.findOne({serviceDogName: req.params.serviceDogName, handlerFirstName: req.params.handlerFirstName})
-        if(serviceDogProfile) {
+
+        // If its not null then update with request object
+        if(serviceDogProfile != null) {
             return true;
         } else {
             return false;
