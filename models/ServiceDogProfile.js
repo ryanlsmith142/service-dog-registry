@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const ServiceDogProfileSchema = new mongoose.Schema({
-    
     serviceDogName: String,
     handlerFirstName: String,
     handlerLastName: String,

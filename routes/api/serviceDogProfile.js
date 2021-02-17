@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const ServiceDogProfile = require('../../models/ServiceDogProfile');
 const request = require('request');
+const { json } = require('express');
 
 
 // @route   POST api/serviceDogProfile
-// @desc    Create or update a service dog profile
+// @desc    Create a service dog profile
 // @access  Private
 router.post('/', async function (req, res) {
     //Is this required?
@@ -13,30 +14,38 @@ router.post('/', async function (req, res) {
 
     try {
 
-        let serviceDogProfile = {};
-        serviceDogProfile.serviceDogName = req.body.serviceDogName;
-        serviceDogProfile.handlerFirstName = req.body.handlerFirstName;
-        serviceDogProfile.handlerLastName = req.body.handlerLastName;
-        serviceDogProfile.certifyingOrganizationName = req.body.certifyingOrganizationName;
-        serviceDogProfile.certifyingOrganizationId = req.body.certifyingOrganizationId
-        serviceDogProfile.dateLastCertified = req.body.dateLastCertified;
-        serviceDogProfile.qrCode = req.body.qrCode;
-        serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
-
-        if(serviceDogProfileExists(req)) {
-            //update
-            console.log("Hey I exist already");
-        } else {
-            serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
-            await serviceDogProfile.save();
-        }
+        let serviceDogProfile = setServiceDogProifleFieldsFromRequestObject(req);
         
+        
+        serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
+        await serviceDogProfile.save();
         res.json(serviceDogProfile);
-
+        
       } catch(error) {
         console.error(error.message);
-        res.status(500).send('Server Error, unable to create or update service dog profile');
+        res.status(500).send('Server Error, unable to create a service dog profile.');
       }
+});
+
+// @route   POST api/serviceDogProfile/:serviceDogProfileId
+// @desc    Update a service dog profile.
+// @access  Private
+router.post('/:serviceDogProfileId', async function (req, res) {
+
+    let serviceDogProfile = setServiceDogProifleFieldsFromRequestObject(req);
+
+    try {
+        let serviceDogProifleFromDB = await ServiceDogProfile.findOneAndUpdate(
+            { _id: req.params.serviceDogProfileId }, 
+            { $set: serviceDogProfile },
+            { new: true}
+            );
+
+        res.json(serviceDogProifleFromDB);
+    } catch(error) {
+        console.error(error.message);
+        res.status(500).send('Server Error, unable to update service dog profile.');
+    }
 });
 
 // @route   GET api/serviceDogProfile/getAllServiceDogs/:certifyingOrganizationId
@@ -83,17 +92,18 @@ router.delete('/:serviceDogProfileId', async function (req, res) {
     }
 })
 
-async function serviceDogProfileExists(req) {
-    try {
-        const serviceDogProfile = await ServiceDogProfile.findOne({serviceDogName: req.params.serviceDogName, handlerFirstName: req.params.handlerFirstName})
-        if(serviceDogProfile) {
-            return true;
-        } else {
-            return false;
-        }
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send('Server Error, unable to find and update profile.');
-    }
+function setServiceDogProifleFieldsFromRequestObject(req) {
+    let serviceDogProfile = {};
+    serviceDogProfile.serviceDogName = req.body.serviceDogName;
+    serviceDogProfile.handlerFirstName = req.body.handlerFirstName;
+    serviceDogProfile.handlerLastName = req.body.handlerLastName;
+    serviceDogProfile.certifyingOrganizationName = req.body.certifyingOrganizationName;
+    serviceDogProfile.certifyingOrganizationId = req.body.certifyingOrganizationId
+    serviceDogProfile.dateLastCertified = req.body.dateLastCertified;
+    serviceDogProfile.qrCode = req.body.qrCode;
+    serviceDogProfile.dogProfilePicture = req.body.dogProfilePicture;
+
+    return serviceDogProfile;
 }
+
 module.exports = router;
