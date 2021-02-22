@@ -1,8 +1,6 @@
 ## Getting Started:
 
-npm start "node server"
-
-npm run server - runs development server
+npm run dev - starts backend and frontend
 
 ## Troubleshooting:
 
@@ -16,6 +14,19 @@ This file should look something like this:
 
 ### TODO:
 
-- Update service dog profile post with update profile
+Backend:
 
-- Set up seeder file
+DB:
+
+* Implement seeder file for DB
+
+Routes:
+
+- Data validators
+
+- Register user JWT (JSON Web Token)
+
+Models:
+
+- User Model
+
