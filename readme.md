@@ -28,5 +28,5 @@ Routes:
 
 Models:
 
-- User Model
+- Addresses - Should be split into street, state, zip
 

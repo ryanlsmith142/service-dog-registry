@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "^5.3.0",
     "config": "^3.3.3",
     "express": "^4.17.1",
-    "express-validator": "^6.9.1",
+    "express-validator": "^6.10.0",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.9",
+    "mongoose-seed": "^0.6.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
@@ -19,6 +21,7 @@
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix public cd public",
+    "seed": "node seeder.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {

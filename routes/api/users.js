@@ -9,7 +9,7 @@ router.post('/', [
     check('firstName', 'Name is required').not().isEmpty(),
     check('lastName', 'Last name is required.').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Please enter a password with 6 or more characters').isLenght({ min: 6})
+    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6})
 ], async function (req, res) {
     const { firstName, lastName, email, password } = req.body;
 
@@ -37,4 +37,6 @@ router.post('/', [
         console.error(error.message);
         res.status(500).send('Server Error.');
     }
-})
+});
+
+module.exports = router;

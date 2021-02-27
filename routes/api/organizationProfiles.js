@@ -48,7 +48,7 @@ router.post('/:organizationProfileId', async function (req, res) {
 // @route   GET api/organizationProfile/getAllOrganizationProfiles
 // @desc    Get all organization profiles
 // @access  Private
-router.get('/organizationProfile/getAllOrganizationProfiles', async function (req, res) {
+router.get('/organizationProfiles/getAllOrganizationProfiles', async function (req, res) {
     try {
         const organizationProfiles = await OrganizationProfile.find();
 
@@ -67,7 +67,7 @@ router.get('/:organizationProfileId', async function (req, res) {
 
     try {
         const organizationProfile = await OrganizationProfile.findOne({ _id: req.params.organizationProfileId});
-        res.json(serviceDogProifle);
+        res.json(organizationProfile);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error, unable to find organization profile');
