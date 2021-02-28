@@ -1,44 +1,28 @@
 const seeder = require('mongoose-seed');
-require('./models/OrganizationProfile');
+
 
 
 // Connect to MongoDB via Mongoose
-seeder.connect('mongodb://localhost:27017/servicedogregistry', async function() {
+seeder.connect('mongodb://localhost:27017/servicedogregistry', function() {
 
   // Load Mongoose models
-  await seeder.loadModels(
+  seeder.loadModels([
     'models/OrganizationProfile'
-  );
+    
+  ], console.log("inside load models"));
  
-  await seeder.populateModels(data, async function(error, done) {
-    if (error) {
-        return console.log("Seed error", error);
-    }
+  console.log("After load models");
+  
+  // Clear specified collections
+  seeder.clearModels('OrganizationProfile', function() {
+    console.log("Inside clar models");
+    // Callback to populate DB once collections have been cleared
+    seeder.populateModels(data, function(error, done) {
 
-    if (done) {
-        return console.log("Seed done", done);
-    }
-
-    await seeder.disconnect();
+      seeder.disconnect();
+    });
+ 
   });
-
-//   // Clear specified collections
-//   seeder.clearModels('OrganizationProfile', function() {
-//     console.log("After")
-//     // Callback to populate DB once collections have been cleared
-//     seeder.populateModels(data, function(error, done) {
-//       if (error) {
-//           return console.log("Seed error", error);
-//       }
-
-//       if (done) {
-//           return console.log("Seed done", done);
-//       }
-
-//       seeder.disconnect();
-//     });
- 
-//   });
 });
 
 const data = [

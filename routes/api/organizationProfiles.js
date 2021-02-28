@@ -48,7 +48,7 @@ router.post('/:organizationProfileId', async function (req, res) {
 // @route   GET api/organizationProfile/getAllOrganizationProfiles
 // @desc    Get all organization profiles
 // @access  Private
-router.get('/organizationProfiles/getAllOrganizationProfiles', async function (req, res) {
+router.get('/getAllOrganizationProfiles', async function (req, res) {
     try {
         const organizationProfiles = await OrganizationProfile.find();
 
@@ -91,12 +91,12 @@ router.delete('/:organizationProfileId', async function (req, res) {
 function setOrganizationProfileFieldsFromRequestObject(req) {
     let organizationProfile = {};
     
-    organizationProfile.certifyingOrganizationName = req.body.certifyingOrganizationName;
+    organizationProfile.name = req.body.name;
     organizationProfile.website = req.body.website;
     organizationProfile.address = req.body.address;
     organizationProfile.phoneNumber = req.body.phoneNumber;
     organizationProfile.email = req.body.email;
-    organizationProfile.ownerId = req.body.email;
+    organizationProfile.userIdThatOwnsOrganization = req.body.userIdThatOwnsOrganization;
 
     return organizationProfile;
 }
