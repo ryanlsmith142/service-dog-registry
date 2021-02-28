@@ -22,7 +22,7 @@
     "server": "nodemon server",
     "client": "npm start --prefix public cd public",
     "seed": "node seeder.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run seed\""
   },
   "repository": {
     "type": "git",

@@ -16,11 +16,11 @@ This file should look something like this:
 
 Access Local Mongo Shell: Open a terminal and run this command - mongo "mongodb://localhost:27017/servicedogregistry"
 
-How to show all processes running: Open a terminal and run this command - ps aux | grep node
+How to show all processes running: Open a terminal and run this command - sudo lsof -i :<Insert port number here>
 
 How to kill processes running: Open a terminal and run this command - kill -9 <Insert PID here>
 
-MONGO COMMANDS:
+### MONGO COMMANDS:
 
 Access Local Mongo Shell: Open a terminal and run this command - mongo "mongodb://localhost:27017/servicedogregistry"
 

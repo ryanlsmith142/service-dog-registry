@@ -7,15 +7,16 @@ seeder.connect('mongodb://localhost:27017/servicedogregistry', function() {
 
   // Load Mongoose models
   seeder.loadModels([
-    'models/OrganizationProfile'
-    
+    'models/OrganizationProfile',
+    'models/User',
+    'models/ServiceDogProfile'
   ], console.log("inside load models"));
  
   console.log("After load models");
   
   // Clear specified collections
-  seeder.clearModels('OrganizationProfile', function() {
-    console.log("Inside clar models");
+  seeder.clearModels(['organizationProfile','user','serviceDogProfile'], function() {
+    console.log("Inside clearr models");
     // Callback to populate DB once collections have been cleared
     seeder.populateModels(data, function(error, done) {
 
@@ -27,32 +28,41 @@ seeder.connect('mongodb://localhost:27017/servicedogregistry', function() {
 
 const data = [
     {
-        'model': 'OrganizationProfile',
+        'model': 'organizationProfile',
         'documents': [
             {
-                'name': 'name',
-                'value': 'VA Dogs Of Texas'
-            },
+                'name': 'VA Dogs Of Texas',
+                'website': 'www.vadogsoftexas.com',
+                'address': '1234 Dog St',
+                'phoneNumber': '9123331234',
+                'email': 'vadogsoftexas@email.com',
+                'userIdThatOwnsOrganization': '1234'
+            }
+        ]
+    },
+    {
+        'model': 'user',
+        'documents': [
             {
-                'name': 'website',
-                'value': 'www.vadogsoftexas.com'
-            },
+                'firstName': 'Ryan',
+                'lastName': 'Smith',
+                'email': 'ryansmith@email.com',
+                'password': 'password',
+                'idOfOrganizationUserBelongsTo': '1234'
+            }
+        ]
+    },
+    {
+        'model': 'serviceDogProfile',
+        'documents': [
             {
-                'name': 'address',
-                'value': '1234 Dog St'
-            },
-            {
-                'name': 'phoneNumber',
-                'value': '9123331234'
-            },
-            {
-                'name': 'email',
-                'value': 'vadogsoftexas@email.com'
-            },
-            {
-                'name': 'userIdThatOwnsOrganization',
-                'value': '1234'
+                'firstName': 'Ryan',
+                'lastName': 'Smith',
+                'email': 'ryansmith@email.com',
+                'password': 'password',
+                'idOfOrganizationUserBelongsTo': '1234'
             }
         ]
     }
+    
 ]
