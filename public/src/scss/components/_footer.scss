@@ -1,0 +1,7 @@
+@use "../variables/colors";
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: colors.$light-grey;
+}
