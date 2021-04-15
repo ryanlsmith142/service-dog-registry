@@ -16,7 +16,6 @@ router.post('/', async function (req, res) {
 
         let serviceDogProfile = setServiceDogProifleFieldsFromRequestObject(req);
         
-        
         serviceDogProfile = new ServiceDogProfile(serviceDogProfile);
         await serviceDogProfile.save();
         res.json(serviceDogProfile);
@@ -80,7 +79,7 @@ router.get('/:serviceDogProfileId', async function (req, res) {
 });
 
 // @route   DELETE api/serviceDogProfile/:serviceDogProfileId
-// @desc    Get a service dog profile by id
+// @desc    Delete a service dog profile by id
 // @access  Private
 router.delete('/:serviceDogProfileId', async function (req, res) {
     try {

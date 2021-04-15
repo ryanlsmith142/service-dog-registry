@@ -1,8 +1,6 @@
 ## Getting Started:
 
-npm start "node server"
-
-npm run server - runs development server
+npm run dev - starts backend and frontend
 
 ## Troubleshooting:
 
@@ -13,6 +11,7 @@ This file should look something like this:
 {
 "mongoURI": "your mongodb connection details here"
 }
+
 
 ## Getting started with SCSS
 
@@ -35,9 +34,39 @@ You will need to install SASS globally on your machine. You can run the followin
 ```
 npm install sass -g
 ```
+=======
+### How To:
+
+Access Local Mongo Shell: Open a terminal and run this command - mongo "mongodb://localhost:27017/servicedogregistry"
+
+How to show all processes running: Open a terminal and run this command - sudo lsof -i :<Insert port number here>
+
+How to kill processes running: Open a terminal and run this command - kill -9 <Insert PID here>
+
+### MONGO COMMANDS:
+
+Access Local Mongo Shell: Open a terminal and run this command - mongo "mongodb://localhost:27017/servicedogregistry"
+
+Show all collections - db.getCollectionNames()
+
+
 
 ### TODO:
 
-- Update service dog profile post with update profile
+Backend:
 
-- Set up seeder file
+DB:
+
+* Implement seeder file for DB
+
+Routes:
+
+- Data validators
+
+- Register user JWT (JSON Web Token)
+
+Models:
+
+- Addresses - Should be split into street, state, zip
+
+
