@@ -26,6 +26,19 @@ Access Local Mongo Shell: Open a terminal and run this command - mongo "mongodb:
 
 Show all collections - db.getCollectionNames()
 
+### Git Workflow:
+
+Commit everything on dev branch
+
+Checkout to Main
+
+Pull Main
+
+Checkout back to dev branch
+
+git merge main
+
+push up your dev branch
 
 ### TODO:
 

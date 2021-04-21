@@ -5,7 +5,7 @@ const request = require('request');
 const { json } = require('express');
 
 
-// @route   POST api/serviceDogProfile
+// @route   POST api/serviceDogProfiles
 // @desc    Create a service dog profile
 // @access  Private
 router.post('/', async function (req, res) {
@@ -26,7 +26,7 @@ router.post('/', async function (req, res) {
       }
 });
 
-// @route   POST api/serviceDogProfile/:serviceDogProfileId
+// @route   POST api/serviceDogProfiles/:serviceDogProfileId
 // @desc    Update a service dog profile.
 // @access  Private
 router.post('/:serviceDogProfileId', async function (req, res) {
